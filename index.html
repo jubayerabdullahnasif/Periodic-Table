@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeonLab Periodic Table</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="top-bar">
+      <div class="brand">
+        <span class="logo-dot"></span>
+        <div>
+          <h1>NeonLab Periodic Table</h1>
+          <p>Immersive chemistry lab interface</p>
+        </div>
+      </div>
+      <div class="temperature">
+        <label for="temperatureRange">Temperature Simulation</label>
+        <div class="temperature-controls">
+          <input type="range" id="temperatureRange" min="-273" max="6000" value="25" />
+          <span id="temperatureValue">25°C</span>
+        </div>
+        <div class="temperature-state" id="temperatureState">Room temperature</div>
+      </div>
+      <div class="toggles">
+        <button id="toggleMotion" class="ghost">Reduced Motion</button>
+        <button id="toggleContrast" class="ghost">High Contrast</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar" aria-label="Filters">
+        <div class="sidebar-header">
+          <h2>Filters</h2>
+          <button id="toggleFilters" class="ghost">Collapse</button>
+        </div>
+        <div class="search">
+          <input type="text" id="searchInput" placeholder="Search element" aria-label="Search element" />
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <div class="filter-section">
+          <h3>State</h3>
+          <div class="filter-group" id="stateFilters">
+            <button data-filter="gas">Gas</button>
+            <button data-filter="liquid">Liquid</button>
+            <button data-filter="solid">Solid</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <h3>Chemical Group</h3>
+          <div class="filter-group" id="groupFilters"></div>
+        </div>
+        <div class="filter-section">
+          <h3>Blocks</h3>
+          <div class="filter-group" id="blockFilters">
+            <button data-filter="s">s-block</button>
+            <button data-filter="p">p-block</button>
+            <button data-filter="d">d-block</button>
+            <button data-filter="f">f-block</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <h3>Radioactivity</h3>
+          <label class="switch">
+            <input type="checkbox" id="radioactiveToggle" />
+            <span class="slider"></span>
+            <span class="label">Radioactive only</span>
+          </label>
+        </div>
+      </aside>
+
+      <section class="table-area">
+        <div class="table-wrapper" id="tableWrapper">
+          <div class="periodic-table" id="periodicTable"></div>
+        </div>
+      </section>
+
+      <aside class="info-panel" id="infoPanel" aria-live="polite">
+        <div class="info-header">
+          <div>
+            <h2 id="elementName">Select an element</h2>
+            <p class="symbol" id="elementSymbol">—</p>
+          </div>
+          <button id="closePanel" class="ghost">Close</button>
+        </div>
+        <div class="info-body">
+          <section class="overview">
+            <div class="overview-grid">
+              <div>
+                <p>Atomic Number</p>
+                <span id="atomicNumber">—</span>
+              </div>
+              <div>
+                <p>Atomic Mass</p>
+                <span id="atomicMass">—</span>
+              </div>
+              <div>
+                <p>Group</p>
+                <span id="groupNumber">—</span>
+              </div>
+              <div>
+                <p>Period</p>
+                <span id="periodNumber">—</span>
+              </div>
+              <div>
+                <p>Category</p>
+                <span id="category">—</span>
+              </div>
+              <div>
+                <p>Electron Config</p>
+                <span id="electronConfig">—</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="model">
+            <div class="section-title">
+              <h3>3D Atomic Structure</h3>
+              <div class="model-controls">
+                <button id="resetModel" class="ghost">Reset</button>
+                <button id="toggleModel" class="ghost">Bohr / Cloud</button>
+              </div>
+            </div>
+            <div class="model-canvas" id="modelCanvas"></div>
+          </section>
+
+          <section class="properties">
+            <h3>Physical Properties</h3>
+            <div class="card-grid" id="physicalProperties"></div>
+          </section>
+
+          <section class="properties">
+            <h3>Chemical Properties</h3>
+            <div class="card-grid" id="chemicalProperties"></div>
+          </section>
+
+          <section class="usage">
+            <h3>Real-world Usage</h3>
+            <div class="usage-grid" id="usageGrid"></div>
+          </section>
+
+          <section class="media">
+            <h3>Media</h3>
+            <div class="media-grid">
+              <img id="elementImage" alt="Element imagery" />
+              <div class="media-placeholder">Lab footage</div>
+            </div>
+          </section>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="tooltip" id="tooltip" role="tooltip"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
